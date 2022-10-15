@@ -4,23 +4,22 @@ import { v4 as uuid} from 'uuid';
 import { CreateCarDto, UpdateCarDto} from './dto';
 
 @Injectable()
-export class CarsService {
-    
+export class CarsService {  
     private cars:CarDB[] = [
         {
             id: uuid(),
             brand: 'Toyota',
-            model: 'Corolla'
+            model: 'Corolla',
         },
         {
             id: uuid(),
             brand: 'Honda',
-            model: 'Civic'
+            model: 'Civic',
         },
         {
             id: uuid(),
             brand: 'Jeep',
-            model: 'Cherokee'
+            model: 'Cherokee',
         }
     ];
 
@@ -40,6 +39,7 @@ export class CarsService {
             id: uuid(),
             ...createCarDto
         }
+        
 
         this.cars.push(car);
         
@@ -64,6 +64,16 @@ export class CarsService {
             return car;
         })
         return carDB;
+    }
+
+    delete(id: string): {} {
+        this.findOneById(id);
+        this.cars = this.cars.filter((car: CarDB)=> car.id!==id); 
+
+        return {
+            ok: true,
+            msg: 'Se ha eliminado el auto'
+        }
     }
 
 }
